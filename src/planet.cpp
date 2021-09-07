@@ -4,7 +4,7 @@ Planet::Planet(Shader* planetShader, const float diameter)
 {
     this->planetShader = planetShader;
     this->diameter = diameter;
-    planetMesh = GenerateSphere(8);
+    planetMesh = GenerateSphere(2);
     planetTransform = new Transform();
 }
 
@@ -56,11 +56,12 @@ std::vector<glm::vec3> SubdivideIco(std::vector<glm::vec3>* vertices, std::vecto
 
 void Planet::ProjectVertices(std::vector<glm::vec3>* vertices)
 {
+
     for (size_t i = 0; i < vertices->size(); i++)
     {
         glm::vec3* vertice = &vertices->at(i);
         float lenvertice = sqrt(powf32(vertice->x, 2) + powf32(vertice->y, 2) + powf32(vertice->z, 2));
-        float q = (this->diameter + (3 * (rand()%100)/100)) / lenvertice;
+        float q = (this->diameter) / lenvertice;
         vertice->x *= q;
         vertice->y *= q;
         vertice->z *= q;

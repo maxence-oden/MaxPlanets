@@ -21,6 +21,8 @@ public:
     }
 
     inline glm::vec3* GetPos() { return &m_position; }
+    inline glm::vec3* GetForward() { return &m_forward; }
+    inline glm::vec3* GetUp() { return &m_up; }
 
 private:
     glm::mat4 m_perspective;

@@ -35,6 +35,8 @@ public:
 
     void Draw();
 
+    inline IndexedModel* GetModel() { return &model; };
+
     virtual ~Mesh();
 private:
     enum
@@ -48,8 +50,9 @@ private:
         NUM_BUFFERS
     };
 
-    void InitMesh(const IndexedModel& model);
+    void InitMesh();
 
+    IndexedModel model;
     GLuint m_vertexArrayObject;
     GLuint m_vertexArrayBuffers[NUM_BUFFERS];
     unsigned int m_drawCount;

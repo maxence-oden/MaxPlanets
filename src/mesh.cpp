@@ -2,14 +2,13 @@
 
 Mesh::Mesh(const std::string& fileName)
 {
-    IndexedModel model = OBJModel(fileName).ToIndexedModel();
-    InitMesh(model);
+    model = OBJModel(fileName).ToIndexedModel();
+    InitMesh();
 
 }
 
 Mesh::Mesh(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned int numIndices)
 {
-    IndexedModel model;
 
     for (size_t i = 0; i < numVertices; i++)
     {
@@ -21,7 +20,7 @@ Mesh::Mesh(Vertex* vertices, unsigned int numVertices, unsigned int* indices, un
     for(unsigned int i = 0; i < numIndices; i++)
         model.indices.push_back(indices[i]);
     
-    InitMesh(model);
+    InitMesh();
 }
 
 Mesh::~Mesh()
@@ -29,7 +28,7 @@ Mesh::~Mesh()
     glDeleteVertexArrays(1, &m_vertexArrayObject);
 }
 
-void Mesh::InitMesh(const IndexedModel& model)
+void Mesh::InitMesh()
 {
     m_drawCount = model.indices.size();
 
@@ -45,7 +44,7 @@ void Mesh::InitMesh(const IndexedModel& model)
 
 
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[TEXTCOORD_VB]);
-    glBufferData(GL_ARRAY_BUFFER, model.positions.size() * sizeof(model.texCoords[0]), &model.texCoords[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, model.texCoords.size() * sizeof(model.texCoords[0]), &model.texCoords[0], GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
